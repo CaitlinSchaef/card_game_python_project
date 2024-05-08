@@ -40,8 +40,11 @@ for card in new_deck.list_of_cards:
     # this is just a loop to look at them, and it does produce all of the lines
     print(card.value, 'of'  ,card.suit)
 
+    def deck_number(self):
+
     def shuffle(self):
 
+        #you need to set the deck number first, because if the player selects more than one deck, in the shuffle you need to add the decks together before you shuffle
 
 
 
