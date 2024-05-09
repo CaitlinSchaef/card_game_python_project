@@ -34,19 +34,27 @@ class Deck:
 #this is also not a part of the Deck class dummy
 #new deck has a property in it called list of cards, so new_deck.list_of_cards is the array 
 new_deck = Deck()
-for card in new_deck.list_of_cards: 
+# for card in new_deck.list_of_cards: 
     # this is just a loop to look at them, and it does produce all of the lines
-    print(card.value, 'of'  ,card.suit)
+    # print(card.value, 'of'  ,card.suit)
 
 #this is not part of the Deck class
 def deck_number():
-    deck_choice = input('How many decks do you want to use? (# < 6)')
-    if (input < 1 or input > 6 ):
+    #wrapping it in int converts it from a string to an integer value
+    deck_choice = int(input('How many decks do you want to use? (# < 6)'))
+    if (deck_choice < 1) or (deck_choice > 6):
         print('No dice you big dumb baby')
         deck_number()
         #putting deck_number() after this if statement runs it again to ask the question 
     else:
-        return [Deck() for num in range(deck_choice)]
+        print(deck_choice)
+        # decks = [Deck() for num in range(deck_choice)]
+        flat_decks = []
+        for num in range(deck_choice):
+            tempDeck = Deck()
+            flat_decks.extend(tempDeck.list_of_cards)
+        # flat_decks.extend(deck)
+        return flat_decks
 
 
 
@@ -59,38 +67,27 @@ class Player:
 
 
 class Game:
-    def __init__(self):
-        self.player = Player()
-        self.decks = deck_number()
-        random.shuffle(self.decks)
-        self.dealer_hand = []
-        self.dealer_wins = 0
-    
     #we're not dealing in the init, we're dealing in the deal function
     def deal(self):
         self.player.hand = self.decks.pop(0)
         self.dealer_hand = self.decks.pop(0)
         print(f'Player Card: {self.player.hand.value} of {self.player.hand.suit}')
-        print(f'Player Card: {self.dealer_hand.value} of {self.dealer_hand.suit}')
+        print(f'Dealer Card: {self.dealer_hand.value} of {self.dealer_hand.suit}')
+
+    def __init__(self):
+        self.player = Player()
+        self.decks = deck_number()
+        #below this the random.shuffle shuffles the deck based on the number of decks the player provides
+        random.shuffle(self.decks)
+        # print(self.decks)
+        self.dealer_hand = []
+        self.dealer_wins = 0
+        self.deal()
     
 
+
     # def check_win:
-        
-
-# def shuffle
-    # shuffle first
-    # maybe make something print thats like: hit enter to shuffle deck 
-    # it will be like: shuffled = random.shuffle(new_deck.list_of_cards) [need to put 'import random' somewhere to use the random.shuffle]
-    # if two decks, add them together before the shuffle? Will i need to make a double function? I'd rather make one function where the parameter switched based on their answer 
-#def deal cards:
-    # give dealer one card, give player one card 
-    # delete from 'shuffled'
-
-# weight the cards value
-    #compare the values of the two cards, if one value is greater than the other, declare winner, if other card 
-
-#declare winner 
-#class Dealer:
-#dealer gets a card
+    # weight the cards value
+        #compare the values of the two cards, if one value is greater than the other, declare winner, if other card 
 
 Game()
