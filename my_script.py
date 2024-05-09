@@ -64,7 +64,7 @@ def deck_number():
 
 
 
-# the inits inside of the class are the constructors for the class, so when we do Player(), it's running the init function there 
+# the inits inside of the class are the constructors for the class, so when we do Player(), it's running the init function there, but it won't run unless Player is called
 class Player:
     def __init__(self):
         self.player_name = input('What is your name?')
@@ -84,35 +84,95 @@ class Game:
         print(f'Dealer Card: {self.dealer_hand.value} of {self.dealer_hand.suit}')
 
     def face_values(self):
-        if self.player.hand.value == "Jack" or self.dealer_hand.value == "Jack":
-            return 11
-        elif self.player.hand.value == "Queen" or self.dealer_hand.value == "Queen":
-            return 12
-        elif self.player.hand.value == "King" or self.dealer_hand.value == "King":
-            return 13
-        elif self.player.hand.value == "Ace" or self.dealer_hand.value == "Ace":
-            return 14
+        if self.player.hand.value == 'Jack':
+            self.player.hand.value = 11
+        elif self.player.hand.value == 'Queen':
+            self.player.hand.value = 12
+        elif self.player.hand.value == 'King':
+            self.player.hand.value = 13
+        elif self.player.hand.value == 'Ace':
+            self.player.hand.value = 14
+        elif self.dealer_hand.value == 'Jack':
+            self.dealer_hand.value = 11
+        elif self.dealer_hand.value == 'Queen':
+            self.dealer_hand.value = 12
+        elif self.dealer_hand.value == 'King':
+            self.dealer_hand.value = 13
+        elif self.dealer_hand.value == 'Ace':
+            self.dealer_hand.value = 14
         else:
-            return self.value
+            return 
         
     def check_suit_values(self):
-        "Diamonds" > "Hearts" and "Diamonds" > "Spades" and "Diamonds" > "Clubs"
-        "Hearts" > "Spades" and "Hearts" > "Clubs"
-        "Spades" > "Clubs"
+        if self.player.hand.suit == 'Diamonds':
+            self.player.hand.suit = 2
+        elif self.player.hand.suit == 'Hearts':
+            self.player.hand.suit = 3
+        elif self.player.hand.suit == 'Spades':
+            self.player.hand.suit = 4
+        elif self.player.hand.suit == 'Clubs':
+            self.player.hand.suit = 1
+        elif self.dealer_hand.suit == 'Diamonds':
+            self.dealer_hand.suit = 2
+        elif self.dealer_hand.suit == 'Hearts':
+            self.dealer_hand.suit = 3
+        elif self.dealer_hand.suit == 'Spades':
+            self.dealer_hand.suit = 4
+        elif self.dealer_hand.suit == 'Clubs':
+            self.dealer_hand.suit = 1
+        else:
+            return 
 
-
+    #def i_am_a_function_that_returns_a_number_based_on_the_self_player_hand(self, value):
+        # if (value == 'Jack')
     def check_win(self):
         self.face_values()
-        if {self.player.hand.value} > {self.dealer_hand.value}:
-            print(f'{self.player_name} won!')
-            return self.wins + 1
-        elif {self.player.hand.value} < {self.dealer_hand.value}:
+        # print(f'player hand value: {self.player.hand.value}')
+        # print(f'dealer hand value: {self.dealer_hand.value}')
+        # print(f'new player card value: {self.player.hand.value} of {self.player.hand.suit}')
+        # print(f'new dealer card value: {self.dealer_hand.value} of {self.dealer_hand.suit}')
+        if self.player.hand.value > self.dealer_hand.value:
+            print(f'{self.player.player_name} won!')
+            self.player.wins = self.player.wins + 1
+        elif self.player.hand.value < self.dealer_hand.value:
             print('Dealer won!')
-            return self.dealer_wins + 1
-        elif {self.player.hand.value} == {self.dealer_hand.value}:
+            self.dealer_wins = self.dealer_wins + 1
+        elif self.player.hand.value == self.dealer_hand.value:
             self.check_suit_values()
+            if self.player.hand.suit > self.dealer_hand.suit:
+                print(f'{self.player.player_name} won!')
+                self.player.wins = self.player.wins + 1
+            elif self.player.hand.suit < self.dealer_hand.suit:
+                print('Dealer won!')
+                self.dealer_wins = self.dealer_wins + 1
+        else:
+            print('I am sad that I got here.')
+    
 
+    def check_continue(self):
+        main_question = input(f'Do you want to keep playing {self.player.player_name}? (Yes/No)')
+        if main_question == "No" or main_question == "no":
+            print('Game over!')
+        else:
+            print('Great!')
+            second_question = input(f'Continue with same deck or new deck? (new deck/same deck)')
+            if second_question == "new deck":
+                new_deck = Deck()
+                self.deal()
+                self.check_win()
+                print(f'{self.player.player_name} Wins: {self.player.wins}')
+                print(f'Dealer Wins: {self.dealer_wins}')
+            elif second_question == "same deck":
+                self.deal()
+                self.check_win()
+                print(f'{self.player.player_name} Wins: {self.player.wins}')
+                print(f'Dealer Wins: {self.dealer_wins}')
+       
+
+
+#This is the actual flow of the game, because it is what is calling all of the other functions in the init
     def __init__(self):
+        print("Let's play!")
         self.player = Player()
         self.decks = deck_number()
         #below this the random.shuffle shuffles the deck based on the number of decks the player provides
@@ -122,12 +182,9 @@ class Game:
         self.dealer_wins = 0
         self.deal()
         self.check_win()
-        print(f'{self.player_name} Wins: {self.wins}')
+        print(f'{self.player.player_name} Wins: {self.player.wins}')
         print(f'Dealer Wins: {self.dealer_wins}')
-
-    
-
-
+        self.check_continue()
     # def check_win:
     # weight the cards value
         #compare the values of the two cards, if one value is greater than the other, declare winner, if other card 
