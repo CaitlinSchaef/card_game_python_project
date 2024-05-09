@@ -1,6 +1,5 @@
 import random 
 # python my_script.py
-# this is A card, a singular card
 # build a dictionary of suits and values
 # python 'none' = js 'null'
 suits = [
@@ -14,6 +13,7 @@ values = [
     2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'
 ]
 
+# this is A card, a singular card
 class Card: 
     # this initializes the variables 
     def __init__(self, suit, value):
@@ -56,7 +56,7 @@ def deck_number():
         print(deck_choice)
         # decks = [Deck() for num in range(deck_choice)]
         flat_decks = []
-        for num in range(deck_choice):
+        for _ in range(deck_choice):
             tempDeck = Deck()
             flat_decks.extend(tempDeck.list_of_cards)
         # flat_decks.extend(deck)
@@ -73,12 +73,44 @@ class Player:
 
 
 class Game:
+    #all the class methods that are in this thing need to happen before init because it has to be defined before called
+
     #we're not dealing in the init, we're dealing in the deal function
     def deal(self):
+        # The pop() method removes the element at the specified position.
         self.player.hand = self.decks.pop(0)
         self.dealer_hand = self.decks.pop(0)
         print(f'Player Card: {self.player.hand.value} of {self.player.hand.suit}')
         print(f'Dealer Card: {self.dealer_hand.value} of {self.dealer_hand.suit}')
+
+    def face_values(self):
+        if self.player.hand.value == "Jack" or self.dealer_hand.value == "Jack":
+            return 11
+        elif self.player.hand.value == "Queen" or self.dealer_hand.value == "Queen":
+            return 12
+        elif self.player.hand.value == "King" or self.dealer_hand.value == "King":
+            return 13
+        elif self.player.hand.value == "Ace" or self.dealer_hand.value == "Ace":
+            return 14
+        else:
+            return self.value
+        
+    def check_suit_values(self):
+        "Diamonds" > "Hearts" and "Diamonds" > "Spades" and "Diamonds" > "Clubs"
+        "Hearts" > "Spades" and "Hearts" > "Clubs"
+        "Spades" > "Clubs"
+
+
+    def check_win(self):
+        self.face_values()
+        if {self.player.hand.value} > {self.dealer_hand.value}:
+            print(f'{self.player_name} won!')
+            return self.wins + 1
+        elif {self.player.hand.value} < {self.dealer_hand.value}:
+            print('Dealer won!')
+            return self.dealer_wins + 1
+        elif {self.player.hand.value} == {self.dealer_hand.value}:
+            self.check_suit_values()
 
     def __init__(self):
         self.player = Player()
@@ -89,6 +121,10 @@ class Game:
         self.dealer_hand = []
         self.dealer_wins = 0
         self.deal()
+        self.check_win()
+        print(f'{self.player_name} Wins: {self.wins}')
+        print(f'Dealer Wins: {self.dealer_wins}')
+
     
 
 
