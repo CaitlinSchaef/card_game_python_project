@@ -41,10 +41,16 @@ new_deck = Deck()
 #this is not part of the Deck class
 def deck_number():
     #wrapping it in int converts it from a string to an integer value
-    deck_choice = int(input('How many decks do you want to use? (# < 6)'))
+    deck_choice = input('How many decks do you want to use? (# < 6)')
+    if deck_choice.isnumeric():
+        deck_choice = int(deck_choice) 
+    else: 
+        print('No dice you big dumb baby!')
+        return deck_number()
+
     if (deck_choice < 1) or (deck_choice > 6):
-        print('No dice you big dumb baby')
-        deck_number()
+        print('No dice you big dumb baby!')
+        return deck_number()
         #putting deck_number() after this if statement runs it again to ask the question 
     else:
         print(deck_choice)
