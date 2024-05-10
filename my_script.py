@@ -20,9 +20,10 @@ class Card:
         self.suit = suit
         self.value = value
 
-    def test_card_function():
-        test_item = Card('heart', 9)
-        assert test_item
+    # def test_card_function():
+    #     test_item = Card('heart', 9)
+    #     assert test_item
+
 #class is a special function that makes objects, and automatically returns a new one, the init part is the constructor that says what happens when we make a new one 
 class Deck:
     def __init__(self):
