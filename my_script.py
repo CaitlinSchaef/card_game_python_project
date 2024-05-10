@@ -4,16 +4,16 @@ import random
 # this is A card, a singular card
 # build a dictionary of suits and values
 # python 'none' = js 'null'
-suits = [
-    'Diamonds',
-    'Hearts', 
-    'Spades',
-    'Clubs'
-]
+# suits = [
+#     'Diamonds',
+#     'Hearts', 
+#     'Spades',
+#     'Clubs'
+# ]
 # cards start at 2, not 0, so making the indexes line up, but Ace can be 0 or 1
-values = [
-    2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'
-]
+# values = [
+#     2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'
+# ]
 class Card: 
     # this initializes the variables 
     def __init__(self, suit, value):
@@ -26,7 +26,16 @@ class Card:
 #class is a special function that makes objects, and automatically returns a new one, the init part is the constructor that says what happens when we make a new one 
 class Deck:
     def __init__(self):
-        self.list_of_cards = [Card(suit, value) for suit in suits for value in values]
+        self.suits = [
+            'Diamonds',
+            'Hearts', 
+            'Spades',
+            'Clubs'
+        ]
+        self.values = [
+            2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'
+        ]
+        self.list_of_cards = [Card(suit, value) for suit in self.suits for value in self.values]
 
 
 class Deck_Numbers:
