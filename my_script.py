@@ -1,19 +1,6 @@
 import random 
-# python my_script.py
 
 # this is A card, a singular card
-# build a dictionary of suits and values
-# python 'none' = js 'null'
-# suits = [
-#     'Diamonds',
-#     'Hearts', 
-#     'Spades',
-#     'Clubs'
-# ]
-# cards start at 2, not 0, so making the indexes line up, but Ace can be 0 or 1
-# values = [
-#     2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'
-# ]
 class Card: 
     # this initializes the variables 
     def __init__(self, suit, value):
@@ -167,12 +154,14 @@ class Game:
                 self.check_win()
                 print(f'{self.player.player_name} Wins: {self.player.wins}')
                 print(f'Dealer Wins: {self.dealer_wins}')
+                self.check_continue()
             elif second_question == "same deck":
                 self.deal()
                 self.face_values()
                 self.check_win()
                 print(f'{self.player.player_name} Wins: {self.player.wins}')
                 print(f'Dealer Wins: {self.dealer_wins}')
+                self.check_continue()
        
 
 
