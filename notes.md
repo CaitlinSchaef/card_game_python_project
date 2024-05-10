@@ -1,7 +1,5 @@
 import random 
 # python my_script.py
-
-# this is A card, a singular card
 # build a dictionary of suits and values
 # python 'none' = js 'null'
 suits = [
@@ -14,43 +12,55 @@ suits = [
 values = [
     2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace'
 ]
+
+# this is A card, a singular card
 class Card: 
     # this initializes the variables 
     def __init__(self, suit, value):
         self.suit = suit
         self.value = value
+#the above does print the suit and values
+
+# this_is_the_card_i_am_creating_it_is_a_new_and_unique_snowflake = Card('heart', 9)
+# gives us heart
+# print(f'{this_is_the_card_i_am_creating_it_is_a_new_and_unique_snowflake.suit} {this_is_the_card_i_am_creating_it_is_a_new_and_unique_snowflake.values}')
+# gives us heart 9
 
 #class is a special function that makes objects, and automatically returns a new one, the init part is the constructor that says what happens when we make a new one 
 class Deck:
     def __init__(self):
         self.list_of_cards = [Card(suit, value) for suit in suits for value in values]
 
+#this is also not a part of the Deck class dummy
+#new deck has a property in it called list of cards, so new_deck.list_of_cards is the array 
+new_deck = Deck()
+# for card in new_deck.list_of_cards: 
+    # this is just a loop to look at them, and it does produce all of the lines
+    # print(card.value, 'of'  ,card.suit)
 
-class Deck_Numbers:
-    def deck_number(self):
-        #wrapping it in int converts it from a string to an integer value
-        deck_choice = input('How many decks do you want to use? (# < 6)')
-        if deck_choice.isnumeric():
-            deck_choice = int(deck_choice) 
-        else: 
-            print('No dice you big dumb baby!')
-            return deck_choice
+#this is not part of the Deck class
+def deck_number():
+    #wrapping it in int converts it from a string to an integer value
+    deck_choice = input('How many decks do you want to use? (# < 6)')
+    if deck_choice.isnumeric():
+        deck_choice = int(deck_choice) 
+    else: 
+        print('No dice you big dumb baby!')
+        return deck_number()
 
-        if (deck_choice < 1) or (deck_choice > 6):
-            print('No dice you big dumb baby!')
-            return deck_choice
-            #putting deck_number() after this if statement runs it again to ask the question 
-        else:
-            print(deck_choice)
-            # decks = [Deck() for num in range(deck_choice)]
-            flat_decks = []
-            for _ in range(deck_choice):
-                tempDeck = Deck()
-                flat_decks.extend(tempDeck.list_of_cards)
-            # flat_decks.extend(deck)
-            return flat_decks
-    def __init__(self):
-        self.a_list_of_all_the_decks = self.deck_number()
+    if (deck_choice < 1) or (deck_choice > 6):
+        print('No dice you big dumb baby!')
+        return deck_number()
+        #putting deck_number() after this if statement runs it again to ask the question 
+    else:
+        print(deck_choice)
+        # decks = [Deck() for num in range(deck_choice)]
+        flat_decks = []
+        for _ in range(deck_choice):
+            tempDeck = Deck()
+            flat_decks.extend(tempDeck.list_of_cards)
+        # flat_decks.extend(deck)
+        return flat_decks
 
 
 
@@ -63,7 +73,6 @@ class Player:
 
 
 class Game:
-    new_deck = Deck()
     #all the class methods that are in this thing need to happen before init because it has to be defined before called
 
     #we're not dealing in the init, we're dealing in the deal function
@@ -148,7 +157,7 @@ class Game:
             print('Great!')
             second_question = input(f'Continue with same deck or new deck? (new deck/same deck)')
             if second_question == "new deck":
-                self.new_deck
+                new_deck = Deck()
                 self.deal()
                 self.check_win()
                 print(f'{self.player.player_name} Wins: {self.player.wins}')
@@ -165,8 +174,7 @@ class Game:
     def __init__(self):
         print("Let's play!")
         self.player = Player()
-        a_temporary_deck_to_give_access_to_the_combined_deck_list = Deck_Numbers()
-        self.decks = a_temporary_deck_to_give_access_to_the_combined_deck_list.a_list_of_all_the_decks
+        self.decks = deck_number()
         #below this the random.shuffle shuffles the deck based on the number of decks the player provides
         random.shuffle(self.decks)
         # print(self.decks)
