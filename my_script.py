@@ -20,6 +20,9 @@ class Card:
         self.suit = suit
         self.value = value
 
+    def test_card_function():
+        test_item = Card('heart', 9)
+        assert test_item
 #class is a special function that makes objects, and automatically returns a new one, the init part is the constructor that says what happens when we make a new one 
 class Deck:
     def __init__(self):
@@ -150,11 +153,13 @@ class Game:
             if second_question == "new deck":
                 self.new_deck
                 self.deal()
+                self.face_values()
                 self.check_win()
                 print(f'{self.player.player_name} Wins: {self.player.wins}')
                 print(f'Dealer Wins: {self.dealer_wins}')
             elif second_question == "same deck":
                 self.deal()
+                self.face_values()
                 self.check_win()
                 print(f'{self.player.player_name} Wins: {self.player.wins}')
                 print(f'Dealer Wins: {self.dealer_wins}')
@@ -177,8 +182,6 @@ class Game:
         print(f'{self.player.player_name} Wins: {self.player.wins}')
         print(f'Dealer Wins: {self.dealer_wins}')
         self.check_continue()
-    # def check_win:
-    # weight the cards value
-        #compare the values of the two cards, if one value is greater than the other, declare winner, if other card 
+
 
 Game()
